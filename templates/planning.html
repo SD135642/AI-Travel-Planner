@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>3-Day Paris Itinerary</title>
+  <style>
+    body {
+        background-color: #83B692;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 2em;
+      color: #204E4A;
+    }
+    .day-container {
+      margin: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      font-size: 1.2em;
+      color: #204E4A;
+      padding-top: 8px;
+    }
+    .day-header {
+      font-size: 1.5em;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      background-color: #83B692;
+      color: #204E4A;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+      transition: background-color 0.2s;
+    }
+    .day-header:hover {
+      background-color: #2a8475;
+    }
+    .day-content {
+      padding: 10px 20px;
+      display: block;
+      background-color: #83B692;
+      border-radius: 5px;
+      margin-top: 10px;
+      border-left: 4px solid #2a8475;
+    }
+    .day-content ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .day-content li {
+      margin: 10px 0;
+    }
+    .collapse {
+      display: none;
+    }
+
+    .button-small {
+        padding: 15px;
+        margin-left: 35%;
+        background-color: #204E4A;
+        color: white;
+        font-size: 1.4rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        width: 30%;
+    }
+        
+
+    .button-small:hover {
+        background-color: #e2b555;
+    } 
+  </style>
+</head>
+<body>
+
+  <h1>Your Itinerary</h1>
+
+  <!-- Placeholder for days -->
+  <div id="itinerary-container"></div>
+  <a href="/prepare" class="button-small">Prepare for my Trip</a>
+
+
+  <script>
+    // Sample data passed from the server
+    const itineraryData = `{{ itinerary | tojson | safe }}`;
+    // Function to parse and render the itinerary dynamically
+    function renderItinerary(itinerary) {
+      const container = document.getElementById('itinerary-container');
+      
+      // Split itinerary into individual days using '#####' as the delimiter
+      const days = itinerary.trim().split('#####').filter(day => day.trim().length > 1);
+
+      days.forEach((day, index) => {
+        // Extract day header (first line) and day content (remaining lines)
+        const lines = day.split('\n').filter(line => line.trim().length > 0);
+        const header = lines[0].trim();
+        const content = lines.slice(1).join('<br>');
+
+        // Create the HTML structure for each day
+        const dayElement = document.createElement('div');
+        dayElement.classList.add('day-container');
+        
+        const dayHeader = document.createElement('div');
+        dayHeader.classList.add('day-header');
+        dayHeader.textContent = header;
+
+        const dayContent = document.createElement('div');
+        dayContent.classList.add('day-content', 'collapse');
+        dayContent.innerHTML = content;
+
+        // Add event listener to toggle content visibility
+        dayHeader.addEventListener('click', function() {
+          dayContent.classList.toggle('collapse');
+        });
+
+        // Append header and content to the day container
+        dayElement.appendChild(dayHeader);
+        dayElement.appendChild(dayContent);
+
+        // Append the day element to the container
+        container.appendChild(dayElement);
+      });
+    }
+
+    // Call the function to render the itinerary on page load
+    renderItinerary(itineraryData);
+  </script>
+
+</body>
+</html>

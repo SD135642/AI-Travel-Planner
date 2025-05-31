@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Information Form</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #83B692; /* Green background */
+            color: #204E4A; /* Black text */
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #d6e8d6;
+            border-radius: 8px;
+            padding: 20px 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .container h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #204E4A;
+            align-items: center;
+            font-size: 1.2rem;
+        }
+        .form-group textarea,
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        .checkbox-group input {
+            margin-right: 8px;
+        }
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #204E4A;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .submit-button:hover {
+            background-color: #e2b555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Enter Your Flight Details</h1>
+    <form action="/submit_data" method="POST" enctype="multipart/form-data">
+        <!-- Airline input -->
+        <div class="form-group">
+            <label for="airline">Enter your airline:</label>
+            <textarea id="airline" name="airline" placeholder="Delta" required></textarea>
+        </div>
+
+        <!-- Airports input -->
+        <div class="form-group">
+            <label for="airports">Enter your airports:</label>
+            <textarea id="airports" name="airports" placeholder="JFK → DME" required></textarea>
+        </div>
+
+        <!-- Citizenship/Residence input -->
+        <div class="form-group">
+            <label for="citizenship">What's your citizenship/residence status?</label>
+            <textarea id="citizenship" name="citizenship" placeholder="American green card" required></textarea>
+        </div>
+
+        <!-- Hotel input -->
+        <div class="form-group">
+            <label for="hotel">Where will you be staying?</label>
+            <textarea id="hotel" name="hotel" placeholder="Marriott Hotel" required></textarea>
+        </div>
+
+        <fieldset>
+            <div class="checkbox-container">
+                <h3>What information would you like?</h3>
+                <input type="checkbox" id="c1" name="activities" value="Currency exchange">
+                <label for="activity1">Currency exchange</label><br>
+                <input type="checkbox" id="c2" name="activities" value="Public transit">
+                <label for="activity2">Public transit</label><br>
+                <input type="checkbox" id="c3" name="activities" value="Document checklist">
+                <label for="activity3">Document checklist</label><br>
+                <input type="checkbox" id="c4" name="activities" value="Getting to/from the airport">
+                <label for="activity4">Getting to/from the airport</label><br>
+                <input type="checkbox" id="c5" name="activities" value="Car rentals">
+                <label for="activity5">Car rentals</label><br>
+            </div>
+        </fieldset>
+
+        <!-- Submit button -->
+        <button type="submit" class="submit-button" id="submitButton">Get info!</button>
+    </form>
+</div>
+
+
+<script>
+    document.getElementById("submitButton").addEventListener("submit", function () {
+        const airline = document.getElementById("airline").value.trim();
+        const airport = document.getElementById("airport").value.trim();
+        const citizenship = document.getElementById("citizenship").value.trim();
+        const hotel = document.getElementById("hotel").value.trim();
+        const checkboxes = document.querySelectorAll(".checkbox-group input[type='checkbox']");
+        let atLeastOneChecked = false;
+
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                atLeastOneChecked = true;
+            }
+        });
+
+        const errorMessage = document.getElementById("errorMessage");
+        const loadingOverlay = document.getElementById("loadingOverlay");
+
+        if (!airline || !airport || !citizenship || !hotel || !atLeastOneChecked) {
+            errorMessage.textContent = "Please fill all fields and select at least one category.";
+            return;
+        }
+
+        errorMessage.textContent = ""; // Clear error message
+        loadingOverlay.style.display = "flex"; // Show loading screen
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:,">
+    <!-- jquery -->
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+
+
+    <title>Answer page</title>
+    <script>
+        $(document).ready(function() {
+            var answers = {{ answers|tojson }};  // Assuming answers is passed from the backend as a list
+
+            if (answers.length > 0) {
+                answers.forEach(function(answer, index) {
+                    var fieldHtml = '<textarea class="form-control answer-field" rows="1" readonly>' + answer + '</textarea>';
+                    $('body').append(fieldHtml);
+                    var textArea = $('textarea.answer-field').last();
+                    textArea.height(textArea[0].scrollHeight);
+                });
+            } else {
+                $('body').append('<p>No answers available.</p>');
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Your Travel Information</h1>
+    <br>
+
+</body>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:,">
+    <!-- jquery -->
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Helper</title>
+
+    <style>
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #d6e8d6;
+            border-radius: 8px;
+            padding: 20px 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 2.6rem;
+            color: #204E4A; /* Dark green for the title */
+            margin-bottom: 10%;
+            justify-self: center;
+        }
+
+        p {
+            font-size: 1.8rem;
+            color: #2D605C; /* Slightly lighter green for subtitle */
+            margin-left: 25%;
+            margin-bottom: 5%;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .button {
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+            color: white;
+            background-color: #204E4A;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background-color: #e2b555;
+        }
+
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Travel Helper!</h1>
+        <p>What do you want to do next?</p>
+        <div class="button-container">
+            <a href="/plan" class="button">Plan Activities!</a>
+
+            <!-- Prepare for trip button -->
+            <a href="/prepare" class="button">Prep for Travel</a>
+        </div>
+    </div>
+</body>
+</html>

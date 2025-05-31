@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:,">
+    <!-- jquery -->
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+
+
+    <title>Homepage</title>
+</head>
+<body>
+    <div class="row">
+        <div id="title">Travelify</div>
+    </div>
+        <form action="/submit" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="form-box">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="row">
+                                    <label for="ticketUpload">Upload Your Ticket:</label>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group d-flex">
+                                        <input type="file" class="form-control" id="ticketUpload" name="ticket">
+                                        <div class="align-items-center">OR</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-5">
+                                <div class="form-group row">
+                                    <label for="cityInput">Enter Your Destination:</label>
+                                    <input type="text" class="form-control" id="cityInput" name="city" placeholder="City Name">
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="airlineInput">Enter Your Airline:</label>
+                                    <input type="text" class="form-control" id="airlineInput" name="airline" placeholder="Airline Name">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="form-group">
+                                    <label for="hotelInput">Enter Your Hotel:</label>
+                                    <input type="text" class="form-control" id="hotelInput" name="hotel" placeholder="Hotel Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="citizenshipInput">Enter Your Citizenship:</label>
+                                    <input type="text" class="form-control" id="citizenshipInput" name="citizenship" placeholder="Citizenship">
+                                </div>
+                                <div class="form-group">
+                                    <label for="citizenshipInput">How many days are you travelling for?</label>
+                                    <input type="text" class="form-control" id="daysInput" name="days" placeholder="# of Days">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            
+                <div class="col-lg-4">
+                    <fieldset>
+                        <div class="checkbox-container">
+                            <legend>I want:</legend>
+                            <input type="checkbox" id="c1" name="activities" value="Car rental info">
+                            <label for="activity1">Car rental info</label><br>
+                            <input type="checkbox" id="c2" name="activities" value="Public transit info">
+                            <label for="activity2">Public transit info</label><br>
+                            <input type="checkbox" id="c3" name="activities" value="Airline regulations">
+                            <label for="activity3">Airline regulations</label><br>
+                            <input type="checkbox" id="c4" name="activities" value="Document checklist">
+                            <label for="activity4">Document checklist</label><br>
+                            <input type="checkbox" id="c5" name="activities" value="A full itinerary for my trip">
+                            <label for="activity5">A full itinerary for my trip</label><br>
+                            <input type="checkbox" id="c6" name="activities" value="A few recommendations where to go">
+                            <label for="activity6">A few recommendations where to go</label><br>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </form>
+
+    <script>
+        // Optional: add functionality to checkboxes
+        $('input[type="checkbox"]').on('click', function() {
+            $(this).next('label').toggleClass('checked', this.checked);
+        });
+    </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Planner</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #83B692;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #d6e8d6;
+            border-radius: 10px;
+            padding: 20px 30px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .container h1 {
+            font-size: 2rem;
+            color: #204E4A;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-section {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            flex: 1 1 45%;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.5em;
+            color: #204E4A;
+        }
+        .large-heading {
+            font-size: 1.5rem;
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.5em;
+            color: #204E4A;
+
+        }
+
+        .form-group textarea,
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+       
+
+        .checkbox-container h3 {
+            font-size: 1.1rem;
+            color: #204E4A;
+            margin-bottom: 15px;
+            margin-top: 0px;
+        }
+
+        .checkbox-container label {
+            align-items: center;
+            font-size: 1rem;
+            color: #204E4A;
+        }
+          
+
+
+        .checkbox-container input {
+            margin-right: 10px;
+           
+        }
+
+        .submit-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #204E4A;
+            color: white;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #e2b555;
+        }
+
+        .error-message {
+            color: rgb(164, 20, 20);
+            font-size: 0.9rem;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+            z-index: 9999;
+            display: none;
+        }
+
+        .loading-plane {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            animation: move-plane 2s infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes move-plane {
+            0% {
+                transform: translateX(-20px);
+            }
+            50% {
+                transform: translateX(20px);
+            }
+            100% {
+                transform: translateX(-20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Plan Your Trip</h1>
+        <form method="POST" action="/submit_activities" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label for="destination">Enter your destination:</label>
+                <textarea id="destination" name="destination" placeholder="Paris, France"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="dates">When are you going?</label>
+                <textarea id="dates" name="dates" placeholder="October 1 - October 12"></textarea>
+            </div>
+            <fieldset>
+                <div class="checkbox-container">
+                    <div class="large-heading">What activities do you like?</div>
+                    <input type="checkbox" id="c1" name="activities" value="Museums">
+                    <label for="activity1">Museums</label><br>
+                    <input type="checkbox" id="c2" name="activities" value="Nature">
+                    <label for="activity2">Nature</label><br>
+                    <input type="checkbox" id="c3" name="activities" value="Children activities">
+                    <label for="activity3">Children activities</label><br>
+                    <input type="checkbox" id="c4" name="activities" value="Famous places">
+                    <label for="activity4">Famous places</label><br>
+                    <input type="checkbox" id="c5" name="activities" value="Restaurants">
+                    <label for="activity5">Restaurants</label><br>
+                    <input type="checkbox" id="c6" name="activities" value="Surprise me!">
+                    <label for="activity6">Surprise me!</label><br>
+                </div>
+            </fieldset>
+            <div class="submit-button">
+                <button class="button" type="submit" id="submitButton">Get Itinerary!</button>
+            </div>
+        </form>
+        <p class="error-message" id="errorMessage"></p>
+    </div>
+
+    <script>
+        document.getElementById("submitButton").addEventListener("submit", function () {
+            const destination = document.getElementById("destination").value.trim();
+            const dates = document.getElementById("dates").value.trim();
+            const checkboxes = document.querySelectorAll(".checkbox-group input[type='checkbox']");
+            let atLeastOneChecked = false;
+
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    atLeastOneChecked = true;
+                }
+            });
+
+            const errorMessage = document.getElementById("errorMessage");
+            const loadingOverlay = document.getElementById("loadingOverlay");
+
+            if (!destination || !dates || !atLeastOneChecked) {
+                errorMessage.textContent = "Please fill all fields and select at least one activity.";
+                return;
+            }
+
+            errorMessage.textContent = ""; // Clear error message
+            loadingOverlay.style.display = "flex"; // Show loading screen
+        });
+    </script>
+</body>
+
+</html>

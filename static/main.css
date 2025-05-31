@@ -1,0 +1,57 @@
+body {
+    background-color: #83B692;
+    color: white;
+    padding: 20px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+
+}
+.form-box {
+    margin-right: 20px;
+    margin-left: 10px;
+}
+.checkbox-container {
+    margin-left: 0px;
+}
+.checkbox {
+    margin: 10px 0;
+}
+
+.align-items-center {
+    margin-left: 20px;
+    font-size: 1.8em;
+}
+
+#ticketUpload {
+    width: 300px;
+    height: 100px;
+    background-color: rgb(175, 170, 153)
+
+}
+
+#hotelInput {
+    width: 250px;
+
+}
+
+.answer-field {
+    border: 1px solid #ebe6c0;
+    margin-bottom: 15px;
+    padding: 10px;
+    width: 90%;
+    box-sizing: border-box;
+    background-color: rgb(195, 185, 152);
+    resize: none;
+}
+
+
+
+#title {
+    font-size: 5em;
+    margin-top: 1%;
+    margin-left: 40%;
+}
